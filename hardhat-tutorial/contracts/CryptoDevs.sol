@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./IWhitelist.sol";
 
-contract CryptoDevs is ERC721IEnumerable, Ownable{
+contract CryptoDevs is ERC721Enumerable, Ownable{
     /**_baseTokenURI for computing {tokenURI}, if set, each of the resulting URI will be a concatenation of the baseURI and tokenId*/
     string _baseTokenURI;
 
@@ -24,7 +24,7 @@ contract CryptoDevs is ERC721IEnumerable, Ownable{
     //Instance of Whitelist contract
     IWhitelist whitelist;
 
-    //Keep tract of presale started or not
+    //Keep track of presale started or not
     bool public presaleStarted;
 
     //Timestamp for when presale would end
@@ -36,7 +36,7 @@ contract CryptoDevs is ERC721IEnumerable, Ownable{
 
     /**Takes in a name = CryptoDevs and a symbol = CD
     *Takes in baseURI to set _baseTokenURI for the collection and initializes an instance of whitelist interface*/
-    constructor(string memory baseURI, address whitelistContract) ERC721("CryptoDevs", "CD"){
+    constructor(string memory baseURI, address whitelistContract) ERC721("Crypto Devs", "CD"){
         _baseTokenURI = baseURI;
         whitelist = IWhitelist(whitelistContract);
     }
@@ -65,7 +65,7 @@ contract CryptoDevs is ERC721IEnumerable, Ownable{
 
     //Alolows the user to mint 1 NFT per transaction after presale has ended
     function mint() public payable onlyWhenNotPaused{
-        require(presaleSatrted && block.timestamp >= presaleEnded, "Presale has not ended yet");
+        require(presaleStarted && block.timestamp >= presaleEnded, "Presale has not ended yet");
         require(tokenIds < maxTokenIds, "Exceed maximum Crypto Devs supply");
         require(msg.value >= _price, "Ether is not correct");
 
@@ -86,7 +86,7 @@ contract CryptoDevs is ERC721IEnumerable, Ownable{
     //Sends all the ether in the contract to the contract owner
     function withdraw() public onlyOwner{
         address _owner = owner();
-        uint256 amount = address(thi).balance;
+        uint256 amount = address(this).balance;
         (bool sent, ) = _owner.call{value: amount}("");
         require(sent, "Failed to send ether");
     }
