@@ -30,8 +30,9 @@ contract CryptoDevs is ERC721Enumerable, Ownable{
     //Timestamp for when presale would end
     uint256 public presaleEnded;
 
-    modifier onlyWhenNotPaused{
+    modifier onlyWhenNotPaused {
         require(!_paused, "Contract is currently paused");
+        _;
     }
 
     /**Takes in a name = CryptoDevs and a symbol = CD
@@ -64,12 +65,12 @@ contract CryptoDevs is ERC721Enumerable, Ownable{
     }
 
     //Alolows the user to mint 1 NFT per transaction after presale has ended
-    function mint() public payable onlyWhenNotPaused{
+    function mint() public payable onlyWhenNotPaused {
         require(presaleStarted && block.timestamp >= presaleEnded, "Presale has not ended yet");
         require(tokenIds < maxTokenIds, "Exceed maximum Crypto Devs supply");
         require(msg.value >= _price, "Ether is not correct");
 
-        tokenId += 1;
+        tokenIds += 1;
         _safeMint(msg.sender, tokenIds);
     }
 
@@ -95,5 +96,5 @@ contract CryptoDevs is ERC721Enumerable, Ownable{
     receive() external payable{}
 
     //Called when msg.data is not empty
-    fallBack() external payable{}
+    fallback() external payable{}
 }
