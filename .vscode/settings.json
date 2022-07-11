@@ -1,0 +1,6 @@
+{
+    "eslint.workingDirectories": [
+    "mobile/ios",
+    "platform/web"
+    ]
+}

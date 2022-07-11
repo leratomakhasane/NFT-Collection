@@ -17,7 +17,7 @@ export default function Home() {
  const [presaleEnded, setPresaleEnded] = useState(false);
 
  //when waiting for transaction to be minted set to true
- cons [loading, setLoading] = useState(false);
+ const [loading, setLoading] = useState(false);
 
  //check current connected MetaMask wallet belong to contract owner
  const [isOwner, setIsOwner] = useState(false);
