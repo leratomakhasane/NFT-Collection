@@ -125,7 +125,7 @@ export default function Home() {
     const provider = await getProviderOrSigner();
 
     //connect contract using provider
-    const nftcontract = new Contract(
+    const nftContract = new Contract(
       NFT_CONTRACT_ADDRESS,
       abi,
       provider
