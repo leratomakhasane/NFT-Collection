@@ -1,5 +1,4 @@
 import { Contract, providers, utils } from "ethers";
-import { getJsonWalletAddress } from "ethers/lib/utils";
 import Head from 'next/head';
 import React, { useEffect, useRef, useState } from "react";
 import Web3Modal from "web3modal";
@@ -68,7 +67,7 @@ export default function Home() {
     );
 
     //to mint Crypto Dev
-    const tx = await whilelistContract.mint({
+    const tx = await whitelistContract.mint({
       value: utils.parseEther("0.01"),
     });
     setLoading(true);
@@ -132,7 +131,7 @@ export default function Home() {
       provider
     );
 
-    const _presaleStarted =  await nftcontract.presaleStarted();
+    const _presaleStarted =  await nftContract.presaleStarted();
     if(!_presaleStarted){
       await getOwner();
     }
@@ -158,7 +157,7 @@ export default function Home() {
 
     //_presaleEnded is a big number so we use ls method instead of <
     //compare _presaleEnded timestamp is less than current time
-    const hasEnded = presaleEnded.lt(Math.floor(Date.now() / 1000));
+    const hasEnded = _presaleEnded.lt(Math.floor(Date.now() / 1000));
     if(hasEnded){
       setPresaleEnded(true);
     }
@@ -306,7 +305,7 @@ export default function Home() {
   if(!presaleStarted){
     return(
       <div>
-        <div className={styles.description}>resale has not started!</div>P
+        <div className={styles.description}>Presale has not started!</div>
       </div>
     );
   }
